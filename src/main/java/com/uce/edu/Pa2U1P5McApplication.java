@@ -1,39 +1,52 @@
 package com.uce.edu;
+
+import java.math.BigDecimal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.uce.edu.repository.modelo.Materia;
+import com.uce.edu.transferencia.repository.modelo.CuentaBancaria;
+import com.uce.edu.transferencia.service.ICuentaBancariaService;
+import com.uce.edu.transferencia.service.ITransferenciaService;
 
 @SpringBootApplication
-public class Pa2U1P5McApplication implements CommandLineRunner{
+public class Pa2U1P5McApplication implements CommandLineRunner {
 
-    @Autowired
-	private Materia materia;
-    @Autowired
-    private Materia materia1;
-    @Autowired
-    private Materia materia2;
+	@Autowired
+	private ITransferenciaService iTransferenciaService;
+	@Autowired
+	private ICuentaBancariaService bancariaService;
+
 	public static void main(String[] args) {
 		SpringApplication.run(Pa2U1P5McApplication.class, args);
 	}
 
 	@Override
 	public void run(String... args) throws Exception {
-		this.materia.setNombre("Avanzada II");
-		System.out.println(this.materia);
+
+		// 1. Crear las cuentas
+		CuentaBancaria ctaOrigen = new CuentaBancaria();
+		ctaOrigen.setCedulaPropietario("1724362106");
+		ctaOrigen.setNumero("1234");
+		ctaOrigen.setSaldo(new BigDecimal(100));
+		this.bancariaService.guardar(ctaOrigen);
+
+		CuentaBancaria ctaDestino = new CuentaBancaria();
+		ctaDestino.setCedulaPropietario("1724362114");
+		ctaDestino.setNumero("5678");
+		ctaDestino.setSaldo(new BigDecimal(200));
+		this.bancariaService.guardar(ctaDestino);
+
+		this.iTransferenciaService.realizar("1234", "5678", new BigDecimal(20));
+
+		CuentaBancaria ctaOrigen1 = this.bancariaService.buscar("1234");
+		System.out.println(ctaOrigen1);
 		
-		System.out.println(materia1);
+		CuentaBancaria ctaDestino1 = this.bancariaService.buscar("5678");
+		System.out.println(ctaDestino1);
 		
-		this.materia1.setNombre("Nuevo Nombre");
-		System.out.println(materia1);
-		System.out.println(materia);
-		
-		this.materia2.setNombre("Nuevo final");
-		System.out.println(materia2);
-		System.out.println(materia1);
-		System.out.println(materia);
 		
 	}
 

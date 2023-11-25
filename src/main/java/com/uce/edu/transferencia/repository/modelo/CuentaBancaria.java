@@ -11,6 +11,12 @@ public class CuentaBancaria {
 	private String cedulaPropietario;
 	private BigDecimal saldo;
 
+	@Override
+	public String toString() {
+		return "CuentaBancaria [numero=" + numero + ", cedulaPropietario=" + cedulaPropietario + ", saldo=" + saldo
+				+ "]";
+	}
+
 	// Set y get
 	public String getNumero() {
 		return numero;

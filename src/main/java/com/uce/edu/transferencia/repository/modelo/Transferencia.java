@@ -18,6 +18,12 @@ public class Transferencia {
 		return fecha;
 	}
 
+	@Override
+	public String toString() {
+		return "Transferencia [numero=" + numero + ", fecha=" + fecha + ", monto=" + monto + ", cuentaOrigen="
+				+ cuentaOrigen + ", cuentaDestino=" + cuentaDestino + "]";
+	}
+
 	public void setFecha(LocalDateTime fecha) {
 		this.fecha = fecha;
 	}

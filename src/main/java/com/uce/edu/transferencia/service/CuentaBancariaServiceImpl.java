@@ -10,29 +10,29 @@ import com.uce.edu.transferencia.repository.modelo.CuentaBancaria;
 public class CuentaBancariaServiceImpl implements ICuentaBancariaService {
 
 	@Autowired
-	private ICuentaBancariaRepository iCuentaBancariaRepository;
+	private ICuentaBancariaRepository bancariaRepository;
 
 	@Override
 	public CuentaBancaria buscar(String numero) {
 		// TODO Auto-generated method stub
-		return this.iCuentaBancariaRepository.seleccionar(numero);
+		return this.bancariaRepository.seleccionar(numero);
 	}
 
 	@Override
 	public void guardar(CuentaBancaria cuentaBancaria) {
-		this.iCuentaBancariaRepository.insertar(cuentaBancaria);
+		this.bancariaRepository.insertar(cuentaBancaria);
 		
 	}
 
 	@Override
 	public void actualizar(CuentaBancaria cuentaBancaria) {
-		this.iCuentaBancariaRepository.actualizar(cuentaBancaria);
+		this.bancariaRepository.actualizar(cuentaBancaria);
 		
 	}
 
 	@Override
 	public void eliminar(String numero) {
-		this.iCuentaBancariaRepository.eliminar(numero);
+		this.bancariaRepository.eliminar(numero);
 		
 	}
 
