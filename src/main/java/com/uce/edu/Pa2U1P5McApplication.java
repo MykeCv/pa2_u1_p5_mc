@@ -13,7 +13,6 @@ public class Pa2U1P5McApplication implements CommandLineRunner{
 	private Materia materia;
     @Autowired
     private Materia materia1;
-   
     @Autowired
     private Materia materia2;
 	public static void main(String[] args) {
