@@ -15,8 +15,25 @@ import com.uce.edu.transferencia.service.ITransferenciaService;
 @SpringBootApplication
 public class Pa2U1P5McApplication implements CommandLineRunner {
 
+	//DI por constructor
+	/*private ITransferenciaService iTransferenciaService;
 	@Autowired
-	private ITransferenciaService iTransferenciaService;
+
+	public Pa2U1P5McApplication(ITransferenciaService iTransServi) {
+		this.iTransferenciaService=iTransSer1vi;
+	}*/
+	
+	//Inyeccion de dependencia por metodo
+	/*@Autowired
+	public void setiTransferenciaService(ITransferenciaService iTransferenciaService) {
+		this.iTransferenciaService = iTransferenciaService;
+	}*/
+	
+	//DI por Atributo
+		@Autowired
+		private ITransferenciaService iTransferenciaService;
+
+
 	@Autowired
 	private ICuentaBancariaService bancariaService;
 
@@ -27,20 +44,12 @@ public class Pa2U1P5McApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
-		
-		
 		// 1. Crear las cuentas
 		CuentaBancaria ctaOrigen = new CuentaBancaria();
 		ctaOrigen.setCedulaPropietario("1724362106");
 		ctaOrigen.setNumero("1234");
 		ctaOrigen.setSaldo(new BigDecimal(100));
 		this.bancariaService.guardar(ctaOrigen);
-		
-		CuentaBancaria ctaOrigen1 = new CuentaBancaria();
-		ctaOrigen1.setCedulaPropietario("1724362106");
-		ctaOrigen1.setNumero("1254");
-		ctaOrigen1.setSaldo(new BigDecimal(123));
-		this.bancariaService.guardar(ctaOrigen1);
 
 		CuentaBancaria ctaDestino = new CuentaBancaria();
 		ctaDestino.setCedulaPropietario("1724362114");
@@ -49,10 +58,9 @@ public class Pa2U1P5McApplication implements CommandLineRunner {
 		this.bancariaService.guardar(ctaDestino);
 
 		this.iTransferenciaService.realizar("1234", "5678", new BigDecimal(10));
-		this.iTransferenciaService.realizar("1234", "5678", new BigDecimal(25));
-		this.iTransferenciaService.realizar("1254", "1234", new BigDecimal(45));
-		this.iTransferenciaService.realizar("5678", "1234", new BigDecimal(65));
-		this.iTransferenciaService.realizar("1254", "5678", new BigDecimal(80));
+	
+		this.iTransferenciaService.realizar("1234", "5678", new BigDecimal(10));
+		this.iTransferenciaService.realizar("5678", "1234", new BigDecimal(10));
 	
 		//Construir un reporte del estado de cuenta de todas las transferencias
 		System.out.println("Lista de reportes de las transacciones: ");
@@ -61,17 +69,16 @@ public class Pa2U1P5McApplication implements CommandLineRunner {
 			i++;
 			System.out.println(i+":"+trans);
 		}
-		//**
-		/*CuentaBancaria ctaOrigen2 = this.bancariaService.buscar("1234");
+		CuentaBancaria ctaOrigen1 = this.bancariaService.buscar("1234");
+		System.out.println(ctaOrigen1);
+		this.bancariaService.Depositar(BigDecimal.valueOf(100), "1234");
+		
+		CuentaBancaria ctaOrigen2 = this.bancariaService.buscar("1234");
 		System.out.println(ctaOrigen2);
 		
 		CuentaBancaria ctaDestino1 = this.bancariaService.buscar("5678");
 		System.out.println(ctaDestino1);
 		
-		CuentaBancaria ctaDestino3 = this.bancariaService.buscar("5678");
-		System.out.println(ctaDestino3);*/
-		
-		
 	}
-
+	
 }
